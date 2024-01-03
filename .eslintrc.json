@@ -1,3 +1,39 @@
 {
-  "extends": "next/core-web-vitals"
-}
+  "extends": "next/core-web-vitals",
+  "plugins": ["simple-import-sort"],
+  "rules": {
+    "simple-import-sort/imports": "warn",
+    "simple-import-sort/exports": "warn",
+    "react-hooks/exhaustive-deps": "error",
+          "indent": [
+          "warn",
+          "tab"
+      ],
+      // "linebreak-style": [
+      //     "error",
+      //     "unix"
+      // ],
+      "quotes": [
+          "error",
+          "single",
+          {
+              "avoidEscape": true,
+              "allowTemplateLiterals": true
+          }
+      ],
+      "semi": [
+          "error",
+          "always"
+      ],
+      "camelcase":2,
+      "curly":2,
+    //   "no-console":2,
+      "eol-last":"off",
+      "arrow-spacing":"error",
+      "brace-style":"error",
+      "func-call-spacing":"error",
+      "function-call-argument-newline":"off",
+      "no-multi-spaces":"error",
+      "no-multiple-empty-lines":"error"
+  }
+  }
