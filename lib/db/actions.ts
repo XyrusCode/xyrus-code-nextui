@@ -1,16 +1,15 @@
-// @ts-nocheck
 /* eslint-disable camelcase */
 'use server';
 
-// import * as Sentry from '@sentry/nextjs';
+import * as Sentry from '@sentry/nextjs';
 import { sql } from '@vercel/postgres';
 import { revalidatePath, unstable_noStore as noStore } from 'next/cache';
 import { type Session } from 'next-auth';
-import { Resend } from 'resend';
 
+// import { Resend } from 'resend';
 import { auth } from '@/app/auth';
 
-const resend = new Resend(process.env.RESEND_SECRET as string);
+// const resend = new Resend(process.env.RESEND_SECRET as string);
 
 export async function increment(slug: string) {
 	noStore();
@@ -50,33 +49,33 @@ export async function saveGuestbookEntry(formData: FormData) {
 
 	revalidatePath('/guestbook');
 
-	resend.emails.send({
-		from: 'onboarding@resend.dev',
-		to: 'shammahprinz@gmail.com',
-		subject: 'Hello World',
-		html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-	});
-
-	// let data = await fetch('https://api.resend.com/emails', {
-	// 	method: 'POST',
-	// 	headers: {
-	// 		Authorization: `Bearer ${process.env.RESEND_SECRET}`,
-	// 		'Content-Type': 'application/json',
-	// 	},
-	// 	body: JSON.stringify({
-	// 		from: 'guestbook@xyruscode.com.ng',
-	// 		to: 'me@xyruscode.com.ng',
-	// 		subject: 'New Guestbook Entry',
-	// 		html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
-	// 	}),
+	// resend.emails.send({
+	// 	from: 'onboarding@resend.dev',
+	// 	to: 'shammahprinz@gmail.com',
+	// 	subject: 'Hello World',
+	// 	html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
 	// });
+
+	let data = await fetch('https://api.resend.com/emails', {
+		method: 'POST',
+		headers: {
+			Authorization: `Bearer ${process.env.RESEND_SECRET}`,
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			from: 'guestbook@xyruscode.com.ng',
+			to: 'me@xyruscode.com.ng',
+			subject: 'New Guestbook Entry',
+			html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
+		}),
+	});
 
 	// let response = resend.emails.
 
-	// let response = await data.json();
+	let response = await data.json();
 	// console.log('Email sent', response);
 	// handle with sentry
-	// Sentry.captureMessage('Email sent', response);
+	Sentry.captureMessage('Email sent', response);
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
