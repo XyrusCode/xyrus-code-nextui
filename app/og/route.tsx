@@ -21,7 +21,8 @@ export async function GET(req: NextRequest) {
 					flexDirection: 'column',
 					alignItems: 'flex-start',
 					justifyContent: 'center',
-					backgroundImage: 'url(https://xyruscode.com.ng/og-bg.png)',
+					//TODO: update for production
+					backgroundImage: 'url(https://v3.xyruscode.com.ng/og-bg.png)',
 				}}
 			>
 				<div

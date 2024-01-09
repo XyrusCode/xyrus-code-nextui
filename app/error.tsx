@@ -6,7 +6,7 @@ export default function Error({
 	error,
 	reset,
 }: {
-  error: Error
+	error: Error & { digest?: string }
   reset: () => void
 }) {
 	useEffect(() => {
@@ -16,7 +16,9 @@ export default function Error({
 
 	return (
 		<div>
+			{error.message}
 			<p>Oh no, something went wrong... maybe refresh?</p>
+			<button onClick={() => reset()}>Try again</button>
 		</div>
 	);
 }
