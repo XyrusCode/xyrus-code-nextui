@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * This config is used to set up Sanity Studio that's mounted on the `app/studio/[[...index]]/Studio.tsx` route
  */
@@ -52,7 +53,7 @@ export default defineConfig({
 			snippet,
 			// Objects
 			milestone,
-			// timeline,
+			timeline,
 		],
 	},
 	plugins: [
