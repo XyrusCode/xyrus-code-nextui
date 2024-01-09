@@ -43,14 +43,14 @@ const nextConfig = {
 		}));
 	},
 
-	headers() {
-		return [
-			{
-				source: '/(.*)',
-				headers: securityHeaders,
-			},
-		];
-	},
+	// headers() {
+	// 	return [
+	// 		{
+	// 			source: '/(.*)',
+	// 			headers: securityHeaders,
+	// 		},
+	// 	];
+	// },
 	//   workboxOpts: {
 	//   swDest: process.env.NEXT_EXPORT
 	//     ? 'service-worker.js'
