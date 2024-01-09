@@ -1,3 +1,4 @@
+import type { Session, User } from 'next-auth';
 import NextAuth from 'next-auth';
 import GitHub from 'next-auth/providers/github';
 
@@ -25,5 +26,8 @@ export const {
 		debug(code, ...message) {
 			console.debug(code, ...message);
 		}
-	}
+	},
+	callbacks: {
+		//TODO:  add these later
+	},
 });
