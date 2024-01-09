@@ -1,6 +1,5 @@
 import { User } from '@nextui-org/react';
 import dayjs from 'dayjs';
-import Image from 'next/image';
 
 import { CustomPortableText } from '@/components/shared/CustomPortableText';
 import { Header } from '@/components/shared/Header';

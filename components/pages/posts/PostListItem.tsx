@@ -2,7 +2,7 @@
 
 // import { CustomPortableText } from '@/components/shared/CustomPortableText'
 import ImageBox from '@/components/shared/ImageBox';
-import type { Post } from '@/types';
+import type { Post } from '@/types/sanity';
 
 interface PostProps {
   post: Post

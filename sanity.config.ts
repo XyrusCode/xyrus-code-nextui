@@ -52,7 +52,7 @@ export default defineConfig({
 			snippet,
 			// Objects
 			milestone,
-			timeline,
+			// timeline,
 		],
 	},
 	plugins: [

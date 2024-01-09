@@ -1,20 +1,14 @@
-import { createClient } from '@sanity/client';
 import type { SanityImageSource } from '@sanity/image-url/lib/types/types';
-// import { getSanityImageConfig } from 'lib/sanity.client'
 import Image from 'next/image';
 import { useNextSanityImage } from 'next-sanity-image';
+
+import { configuredSanityClient } from '@/sanity/lib/client';
 
 interface Props {
   asset: SanityImageSource
   alt: string
   caption?: string
 }
-
-const configuredSanityClient = createClient({
-	projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-	dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-	useCdn: true,
-});
 
 export const SanityImage = (props: Props) => {
 	const { asset, alt, caption } = props;

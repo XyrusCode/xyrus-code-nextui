@@ -23,7 +23,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 			{title && <Header centered title={title} description={overview} />}
 			{/* Showcase projects */}
 			{showcaseProjects && showcaseProjects.length > 0 && (
-				<div className="mx-auto max-w-[100rem] rounded-md border">
+				<div className="mx-auto max-w-[100rem]">
 					{showcaseProjects.map((project, key) => {
 						const href = resolveHref(project._type, project.slug);
 						if (!href) {
@@ -39,7 +39,9 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 									'slug',
 								])}
 							>
-								<ProjectListItem project={project} odd={key % 2} />
+								<ProjectListItem
+									gradient='bg-gradient-to-r from-blue-400 to-blue-500'
+									project={project} odd={key % 2} />
 							</Link>
 						);
 					})}
@@ -48,7 +50,7 @@ export function HomePage({ data, encodeDataAttribute }: HomePageProps) {
 
 			{/* blog posts */}
 			{blogPosts && blogPosts.length > 0 && (
-				<div className="mx-auto max-w-[100rem] rounded-md border">
+				<div className="mx-auto max-w-[100rem]">
 					{blogPosts.map((post, key) => {
 						const href = resolveHref('post', post.slug);
 						if (!href) {

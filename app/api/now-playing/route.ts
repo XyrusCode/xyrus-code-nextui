@@ -1,56 +1,37 @@
-import { NextRequest } from 'next/server';
-
 import { getNowPlaying } from '@/lib/spotify';
+import type { NowPlayingResponse,NowPlayingSong } from '@/types/spotify';
 
-export const config = {
-	runtime: 'experimental-edge'
-};
+export const GET = async () => { 
+	const request = await getNowPlaying();
+	const response: NowPlayingResponse = await request.json();;
 
-export const GET = async (req: NextRequest) => { 
-	const response = await getNowPlaying();
+	const headers = {
+		'content-type': 'application/json',
+		'cache-control': 'public, s-maxage=60, stale-while-revalidate=30'
+	};
 
-	if (response.status === 204 || response.status > 400) {
+	if (response === null) {
 		return new Response(JSON.stringify({ isPlaying: false }), {
 			status: 200,
-			headers: {
-				'content-type': 'application/json'
-			}
+			headers: headers
 		});
-	}
+	} else {
 
-	const song = await response.json();
-
-	if (song.item === null) {
-		return new Response(JSON.stringify({ isPlaying: false }), {
-			status: 200,
-			headers: {
-				'content-type': 'application/json'
+		return Response.json(
+			{
+				id: response.item.id,
+				isPlaying: response.is_playing,
+				title: response.item.name,
+				artist: response.item.artists.map((_artist: any) => _artist.name).join(', '),
+				album: response.item.album.name,
+				albumImageUrl: response.item.album.images[0].url,
+				songUrl: response.item.external_urls.spotify
+				
+			} as NowPlayingSong,
+			{
+				status: 200,
+				headers: headers
 			}
-		});
+		);
 	}
-
-	const isPlaying = song.is_playing;
-	const title = song.item.name;
-	const artist = song.item.artists.map((_artist: any) => _artist.name).join(', ');
-	const album = song.item.album.name;
-	const albumImageUrl = song.item.album.images[0].url;
-	const songUrl = song.item.external_urls.spotify;
-
-	return new Response(
-		JSON.stringify({
-			album,
-			albumImageUrl,
-			artist,
-			isPlaying,
-			songUrl,
-			title
-		}),
-		{
-			status: 200,
-			headers: {
-				'content-type': 'application/json',
-				'cache-control': 'public, s-maxage=60, stale-while-revalidate=30'
-			}
-		}
-	);
 };

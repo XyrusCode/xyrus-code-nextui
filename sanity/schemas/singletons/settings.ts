@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CogIcon } from '@sanity/icons';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 

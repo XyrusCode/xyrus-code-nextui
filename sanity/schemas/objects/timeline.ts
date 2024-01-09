@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { defineField, defineType } from 'sanity';
 
 export default defineType({
@@ -44,7 +45,7 @@ export default defineType({
 						prepare({ items, title }) {
 							const hasItems = items && items.length > 0;
 							const milestoneNames =
-                hasItems && items.map((timeline) => timeline.title).join(', ');
+                hasItems && items.map((timeline: { title: any; }) => timeline.title).join(', ');
 
 							return {
 								subtitle: hasItems

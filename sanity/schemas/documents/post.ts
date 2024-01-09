@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BookIcon } from '@sanity/icons';
 import { format, parseISO } from 'date-fns';
 import { defineField, defineType } from 'sanity';

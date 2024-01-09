@@ -1,4 +1,5 @@
 // import { toPlainText } from '@portabletext/react'
+import { toPlainText } from '@portabletext/react';
 import { Metadata, ResolvingMetadata } from 'next';
 import dynamic from 'next/dynamic';
 import { draftMode } from 'next/headers';
@@ -22,8 +23,8 @@ export async function generateMetadata(
 	return {
 		title: page?.title,
 		description: page?.excerpt
-		// ? toPlainText(page.excerpt)
-		// : (await parent).description,
+			? toPlainText(page.excerpt)
+			: (await parent).description,
 	};
 }
 

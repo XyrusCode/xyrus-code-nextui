@@ -5,7 +5,7 @@ import {
 } from '@sanity/react-loader';
 import * as queryStore from '@sanity/react-loader';
 
-import { SettingsPayload } from '@/types';
+import { SettingsPayload } from '@/types/sanity';
 
 import { settingsQuery } from '../lib/queries';
 

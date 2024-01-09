@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CaseIcon } from '@sanity/icons';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 

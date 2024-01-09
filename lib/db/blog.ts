@@ -37,7 +37,7 @@ function readMDXFile(filePath: fs.PathOrFileDescriptor) {
 
 function extractTweetIds(content: string) {
 	let tweetMatches = content.match(/<StaticTweet\sid="[0-9]+"\s\/>/g);
-	return tweetMatches?.map((tweet) => tweet?.match(/[0-9]+/g)[0]) || [];
+	return tweetMatches?.map((tweet) => tweet?.match(/[0-9]+/g)?.[0]) || [];
 }
 
 function getMDXData(dir: string) {

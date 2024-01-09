@@ -6,14 +6,14 @@ import { Image } from 'sanity';
 import ImageBox from '@/components/shared/ImageBox';
 import { TimelineSection } from '@/components/shared/TimelineSection';
 
-import CodeBlock from './CodeBlock';
+import CodeBlock, { Code as CodeType } from './CodeBlock';
 
 export function CustomPortableText({
 	paragraphClasses,
 	value,
 }: {
-  paragraphClasses?: string;
-  value: PortableTextBlock[];
+	paragraphClasses?: string;
+	value: PortableTextBlock[];
 }) {
 	const components: PortableTextComponents = {
 		block: {
@@ -42,21 +42,22 @@ export function CustomPortableText({
 				value: {
 					code: string;
 					language: string;
-				
-			} }) => { 
+
+				}
+			}) => {
 				return (
 					<CodeBlock
 						text={value?.code}
-						language={value?.language}
-						// highlightedLines={values?.highlightedLines}
+						language={value?.language as CodeType['language']}
+					// highlightedLines={values?.highlightedLines}
 					/>
 				);
 			},
 			image: ({
 				value,
 			}: {
-        value: Image & { alt?: string; caption?: string };
-      }) => {
+				value: Image & { alt?: string; caption?: string };
+			}) => {
 				return (
 					<div className="my-6 space-y-2">
 						<ImageBox

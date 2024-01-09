@@ -8,6 +8,8 @@ const nextConfig = {
 		remotePatterns: [
 			{ hostname: 'cdn.sanity.io' },
 			{ hostname: 'source.unsplash.com' },
+			// spotify
+			{hostname: 'i.scdn.co'}
 		],
 	},
 	typescript: {
@@ -78,12 +80,15 @@ const nextConfig = {
 
 const ContentSecurityPolicy = `
     default-src 'self' vercel.live;
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com;
-    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' cdn.vercel-insights.com vercel.live va.vercel-scripts.com sentry.io;
+	child-src 'self' vercel.live open.spotify.com;
+	style-src 'self' 'unsafe-inline';
     img-src * blob: data:;
-    media-src 'none';
+    media-src 'self';
     connect-src *;
     font-src 'self' data:;
+	frame-src 'self' vercel.live open.spotify.com;
+	frame-ancestors 'self';
 `;
 
 const securityHeaders = [
@@ -97,7 +102,7 @@ const securityHeaders = [
 	},
 	{
 		key: 'X-Frame-Options',
-		value: 'DENY',
+		value: 'SAMEORIGIN',
 	},
 	{
 		key: 'X-Content-Type-Options',
@@ -113,7 +118,7 @@ const securityHeaders = [
 	},
 	{
 		key: 'Permissions-Policy',
-		value: 'camera=(), microphone=(), geolocation=()',
+		value: 'camera=(), microphone=(), geolocation=(), ',
 	},
 ];
 

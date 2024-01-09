@@ -1,14 +1,14 @@
 import { CustomPortableText } from '@/components/shared/CustomPortableText';
 import { Header } from '@/components/shared/Header';
-import type { PagePayload } from '@/types';
+import type { PagePayload } from '@/types/sanity';
 
 export interface PageProps {
-  data: PagePayload | null
+	data: PagePayload | null
 }
 
 export function Page({ data }: PageProps) {
 	// Default to an empty object to allow previews on non-existent documents
-	const { body, overview, title, markdown } = data ?? {};
+	const { body, overview, title } = data ?? {};
 
 	return (
 		<div>
@@ -24,13 +24,6 @@ export function Page({ data }: PageProps) {
 					/>
 				)}
 
-				{/* {markdown && (
-          <div>
-            <div className="max-w-3xl text-gray-600 text-xl">
-              {marked.parse(markdown)}
-            </div>
-          </div>
-        )} */}
 			</div>
 			<div className="absolute left-0 w-screen border-t" />
 		</div>

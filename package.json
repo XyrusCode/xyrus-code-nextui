@@ -20,6 +20,7 @@
     "endOfLine": "auto"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.8",
     "@googleapis/youtube": "^13.0.0",
     "@nextui-org/react": "^2.2.9",
     "@portabletext/react": "3.0.11",
@@ -40,7 +41,7 @@
     "@vercel/speed-insights": "^0.0.5",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.3",
-    "classnames": "2.3.2",
+    "classnames": "^2.3.2",
     "date-fns": "2.30.0",
     "dayjs": "^1.11.10",
     "dotenv": "^16.3.1",
@@ -49,6 +50,7 @@
     "framer-motion": "^10.16.16",
     "geist": "1.1.0",
     "highlight.js": "^11.9.0",
+    "js-cookie": "^3.0.5",
     "marked": "^11.1.0",
     "motion": "^10.16.4",
     "next": "14.0.4",
@@ -59,6 +61,7 @@
     "next-sanity-image": "^6.1.1",
     "next-themes": "^0.2.1",
     "postcss": "^8.4.31",
+    "querystring": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-lowlight": "^3.0.0",

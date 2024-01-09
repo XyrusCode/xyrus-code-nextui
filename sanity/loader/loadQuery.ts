@@ -3,7 +3,7 @@ import 'server-only';
 import * as queryStore from '@sanity/react-loader';
 import { draftMode } from 'next/headers';
 
-import { client } from '@/sanity/lib/client';
+import { configuredSanityClient } from '@/sanity/lib/client';
 import {
 	blogPageQuery,
 	homePageQuery,
@@ -19,12 +19,13 @@ import {
 	HomePagePayload,
 	PagePayload,
 	PostPayload,
+	ProjectPagePayload,
 	ProjectPayload,
 	SettingsPayload,
 } from '@/types/sanity';
 
 
-const serverClient = client.withConfig({
+const serverClient = configuredSanityClient.withConfig({
 	token,
 	stega: {
 		// Enable stega if it's a Vercel preview deployment, as the Vercel Toolbar has controls that shows overlays
@@ -87,7 +88,7 @@ export function loadHomePage() {
 }
 
 export function loadProjectsPage() { 
-	return loadQuery<ProjectPayload | null>(
+	return loadQuery<ProjectPagePayload | null>(
 		projectsPageQuery,
 		{},
 		{ next: { tags: ['home', 'project'] } },

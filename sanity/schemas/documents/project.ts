@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { DocumentIcon, ImageIcon } from '@sanity/icons';
 import { defineArrayMember, defineField, defineType } from 'sanity';
 

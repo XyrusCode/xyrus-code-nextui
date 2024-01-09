@@ -10,7 +10,7 @@ const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-pla
 const TOP_TRACKS_ENDPOINT = `https://api.spotify.com/v1/me/top/tracks`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
-const getAccessToken = async () => {
+export const getAccessToken = async () => {
 	const response = await fetch(TOKEN_ENDPOINT, {
 		method: 'POST',
 		headers: {
@@ -33,16 +33,24 @@ export const getNowPlaying = async () => {
 	return fetch(NOW_PLAYING_ENDPOINT, {
 		headers: {
 			Authorization: `Bearer ${access_token}`
-		}
+		},
+		next: {
+			revalidate: 300,
+			tags: ['spotify'],
+		},
+		// cache: 'no-cache',
 	});
 };
 
 export const getTopTracks = async () => {
 	const { access_token } = await getAccessToken();
 
-	return fetch(TOP_TRACKS_ENDPOINT, {
+	const response = await fetch(TOP_TRACKS_ENDPOINT, {
 		headers: {
 			Authorization: `Bearer ${access_token}`
 		}
-	});
+	},
+	);
+
+	return response.json();
 };

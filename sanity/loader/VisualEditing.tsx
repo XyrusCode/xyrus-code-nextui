@@ -5,10 +5,10 @@ import { useLiveMode } from '@sanity/react-loader';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { client } from '@/sanity/lib/client';
+import { configuredSanityClient } from '@/sanity/lib/client';
 
 // Always enable stega in Live Mode
-const stegaClient = client.withConfig({ stega: true });
+const stegaClient = configuredSanityClient.withConfig({ stega: true });
 
 export default function VisualEditing() {
 	const router = useRouter();

@@ -7,8 +7,8 @@ import { resolveHref } from '@/sanity/lib/utils';
 import type { ProjectPagePayload } from '@/types/sanity';
 
 export interface ProjectPageProps {
-  data: ProjectPagePayload | null;
-  encodeDataAttribute?: EncodeDataAttributeCallback;
+	data: ProjectPagePayload;
+	encodeDataAttribute?: EncodeDataAttributeCallback;
 }
 
 export function ProjectsPage({ data, encodeDataAttribute }: ProjectPageProps) {
@@ -37,7 +37,7 @@ export function ProjectsPage({ data, encodeDataAttribute }: ProjectPageProps) {
 									'slug',
 								])}
 							>
-								<ProjectListItem project={project} odd={key % 2} />
+								<ProjectListItem project={project} odd={key % 2} gradient={''} />
 							</Link>
 						);
 					})}

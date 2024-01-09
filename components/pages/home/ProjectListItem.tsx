@@ -1,22 +1,29 @@
 import type { PortableTextBlock } from '@portabletext/types';
+import cn from 'classnames';
+import Link from 'next/link';
 
 import { CustomPortableText } from '@/components/shared/CustomPortableText';
 import ImageBox from '@/components/shared/ImageBox';
-import type { ShowcaseProject } from '@/types';
+import type { ShowcaseProject } from '@/types/sanity';
 
 interface ProjectProps {
-  project: ShowcaseProject
-  odd: number
+	project: ShowcaseProject;
+	gradient: string;
+	odd: number;
 }
 
 export function ProjectListItem(props: ProjectProps) {
-	const { project, odd } = props;
-
+	const { project, odd, gradient } = props;
 	return (
 		<div
-			className={`flex flex-col gap-x-5 p-2 transition hover:bg-gray-50/50 xl:flex-row ${
-				odd && 'border-b border-t xl:flex-row-reverse'
-			}`}
+			className={
+				cn(
+					'transform hover:scale-[1.01] transition-all',
+					'rounded-xl w-full bg-gradient-to-r p-5',
+					gradient,
+					`flex flex-col gap-x-5 transition hover:bg-gray-50/50 xl:flex-row ${odd && 'border-b border-t xl:flex-row-reverse'
+					}`
+				)}
 		>
 			<div className="w-full xl:w-9/12">
 				<ImageBox
@@ -29,6 +36,7 @@ export function ProjectListItem(props: ProjectProps) {
 				<TextBox project={project} />
 			</div>
 		</div>
+
 	);
 }
 
@@ -49,7 +57,7 @@ function TextBox({ project }: { project: ShowcaseProject }) {
 			<div className="mt-4 flex flex-row gap-x-2">
 				{project.tags?.map((tag, key) => (
 					<div className="text-sm font-medium lowercase md:text-lg" key={key}>
-            #{tag}
+						#{tag}
 					</div>
 				))}
 			</div>

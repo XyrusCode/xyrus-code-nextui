@@ -119,19 +119,6 @@ export const postBySlugQuery = groq`
 }
 `;
 
-export const postAndMoreStoriesQuery = groq`
-{
-  "post": *[_type == "post" && slug.current == $slug] | order(_updatedAt desc) [0] {
-    content,
-    ${postFields}
-  },
-  "morePosts": *[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
-    content,
-    ${postFields}
-  }
-}`;
-
-
 export const blogPostsQuery = groq`
   *[_type == "post"] | order(date desc, _updatedAt desc) {
     _id,
@@ -145,3 +132,12 @@ export const blogPostsQuery = groq`
     "slug": slug.current,
     "author": author->{name, picture},
   }`;
+
+//  get posts with similar tags
+export const getSimilarPosts = groq`
+*[_type == "post" && slug.current != $slug] | order(date desc, _updatedAt desc) [0...2] {
+     content,
+     ${postFields}
+   }
+`;
+  
