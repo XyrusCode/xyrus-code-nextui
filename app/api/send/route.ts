@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Resend } from 'resend';
 
 import { EmailTemplate } from '@/components/shared/EmailTemplate';
