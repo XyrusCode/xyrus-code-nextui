@@ -14,7 +14,7 @@ export const homePageQuery = groq`
     },
         blogPosts[]->{
       _type,
-      coverImage,
+  coverImage,
       author->{name, picture, title},
       overview,
       "slug": slug.current,
@@ -140,4 +140,3 @@ export const getSimilarPosts = groq`
      ${postFields}
    }
 `;
-  

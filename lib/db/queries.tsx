@@ -49,10 +49,10 @@ export async function getViewsCount() {
 	return data.rows as { slug: string; count: number }[];
 }
 
-export const getLeeYouTubeSubs = cache(
+export const getYouTubeSubs = cache(
 	async () => {
 		let response = await yt.channels.list({
-			id: ['UCZMli3czZnd1uoc1ShTouQw'],
+			id: ['UCwolPiF_7zbFGiktzGEBcGQ'],
 			part: ['statistics'],
 		});
 
@@ -95,3 +95,4 @@ export async function getGuestbookEntries() {
   `;
 	return entries.rows;
 }
+

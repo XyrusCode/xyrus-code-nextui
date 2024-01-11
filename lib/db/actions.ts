@@ -12,8 +12,8 @@ import { auth } from '@/app/auth';
 // const resend = new Resend(process.env.RESEND_SECRET as string);
 
 export async function increment(slug: string) {
-	noStore();
-	await sql`
+  noStore();
+  await sql`
     INSERT INTO views (slug, count)
     VALUES (${slug}, 1)
     ON CONFLICT (slug)
@@ -22,78 +22,78 @@ export async function increment(slug: string) {
 }
 
 async function getSession(): Promise<Session> {
-	let session = await auth();
-	if (!session || !session.user) {
-		throw new Error('Unauthorized');
-	}
+  let session = await auth();
+  if (!session || !session.user) {
+    throw new Error('Unauthorized');
+  }
 
-	return session;
+  return session;
 }
 
 export async function saveGuestbookEntry(formData: FormData) {
-	let session = await getSession();
-	let email = session.user?.email as string;
-	let created_by = session.user?.name as string;
+  let session = await getSession();
+  let email = session.user?.email as string;
+  let created_by = session.user?.name as string;
 
-	if (!session.user) {
-		throw new Error('Unauthorized');
-	}
+  if (!session.user) {
+    throw new Error('Unauthorized');
+  }
 
-	let entry = formData.get('entry')?.toString() || '';
-	let body = entry.slice(0, 500);
+  let entry = formData.get('entry')?.toString() || '';
+  let body = entry.slice(0, 500);
 
-	await sql`
+  await sql`
     INSERT INTO guestbook (email, body, created_by, created_at)
     VALUES (${email}, ${body}, ${created_by}, NOW())
   `;
 
-	revalidatePath('/guestbook');
+  revalidatePath('/guestbook');
 
-	// resend.emails.send({
-	// 	from: 'onboarding@resend.dev',
-	// 	to: 'shammahprinz@gmail.com',
-	// 	subject: 'Hello World',
-	// 	html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-	// });
+  // resend.emails.send({
+  // 	from: 'onboarding@resend.dev',
+  // 	to: 'shammahprinz@gmail.com',
+  // 	subject: 'Hello World',
+  // 	html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+  // });
 
-	let data = await fetch('https://api.resend.com/emails', {
-		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${process.env.RESEND_SECRET}`,
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({
-			from: 'guestbook@xyruscode.com.ng',
-			to: 'me@xyruscode.com.ng',
-			subject: 'New Guestbook Entry',
-			html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
-		}),
-	});
+  let data = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${process.env.RESEND_SECRET}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: 'guestbook@xyruscode.com.ng',
+      to: 'me@xyruscode.com.ng',
+      subject: 'New Guestbook Entry',
+      html: `<p>Email: ${email}</p><p>Message: ${body}</p>`,
+    }),
+  });
 
-	// let response = resend.emails.
+  // let response = resend.emails.
 
-	let response = await data.json();
-	// console.log('Email sent', response);
-	// handle with sentry
-	Sentry.captureMessage('Email sent', response);
+  let response = await data.json();
+  // console.log('Email sent', response);
+  // handle with sentry
+  Sentry.captureMessage('Email sent', response);
 }
 
 export async function deleteGuestbookEntries(selectedEntries: string[]) {
-	let session = await getSession();
-	let email = session.user?.email as string;
+  let session = await getSession();
+  let email = session.user?.email as string;
 
-	if (email !== 'me@xyruscode.com.ng') {
-		throw new Error('Unauthorized');
-	}
+  if (email !== 'shammahprinz@gmail.om') {
+    throw new Error('Unauthorized');
+  }
 
-	let selectedEntriesAsNumbers = selectedEntries.map(Number);
-	let arrayLiteral = `{${selectedEntriesAsNumbers.join(',')}}`;
+  let selectedEntriesAsNumbers = selectedEntries.map(Number);
+  let arrayLiteral = `{${selectedEntriesAsNumbers.join(',')}}`;
 
-	await sql`
+  await sql`
     DELETE FROM guestbook
     WHERE id = ANY(${arrayLiteral}::int[])
   `;
 
-	revalidatePath('/admin');
-	revalidatePath('/guestbook');
+  revalidatePath('/admin');
+  revalidatePath('/guestbook');
 }

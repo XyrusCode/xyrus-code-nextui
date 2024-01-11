@@ -19,5 +19,6 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "javascript.updateImportsOnFileMove.enabled": "always",
-  "editor.wordWrap": "on"
+  "editor.wordWrap": "on",
+  "files.autoSaveDelay": 0
 }
