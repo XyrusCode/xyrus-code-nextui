@@ -1,22 +1,25 @@
 'use client';
+
+import siteMetadata from '@/data/siteMetadata'
 import { NextUIProvider } from '@nextui-org/react';
-// import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider as NextThemesProvider } from 'next-themes';
+// import { SearchProvider, SearchConfig } from 'pliny/search';
 
 const Providers = ({ children,
-	// session
+
 }: {
 	children: React.ReactNode,
-	// session: any
- }) => {
+
+}) => {
 	return (
-		// <SessionProvider session={session}>
 		<NextUIProvider>
-			<NextThemesProvider attribute="class" defaultTheme="dark">
+			<NextThemesProvider attribute="class" defaultTheme={siteMetadata.theme}>
+				{/* <SearchProvider searchConfig={siteMetadata.search as SearchConfig}> */}
 				{children}
+				{/* </SearchProvider> */}
 			</NextThemesProvider>
 		</NextUIProvider>
-		// </SessionProvider>
+
 
 	);
 };

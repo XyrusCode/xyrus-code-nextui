@@ -1,16 +1,28 @@
 // import { getBlogPosts } from '@/lib/db/blog';
+import { MetadataRoute } from 'next';
+import siteMetadata from '@/data/siteMetadata';
 
-export default async function sitemap() {
-	// let blogs = getBlogPosts().map((post) => ({
-	// 	url: `https://xyruscode.com.ng/posts/${post.slug}`,
-	// 	lastModified: post.metadata.publishedAt,
-	// }));
+export default function sitemap(): MetadataRoute.Sitemap {
+  // let blogs = getBlogPosts().map((post) => ({
+  // 	url: `https://xyruscode.com.ng/posts/${post.slug}`,
+  // 	lastModified: post.metadata.publishedAt,
+  // }));
+  const siteUrl = siteMetadata.siteUrl;
 
-	let routes = ['', '/about', '/guestbook', '/posts', '/projects'].map((route) => ({
-		url: `https://xyruscode.com.ng${route}`,
-		lastModified: new Date().toISOString().split('T')[0],
-	}));
+  //   const blogRoutes = allBlogs
+  //     .filter((post) => !post.draft)
+  //     .map((post) => ({
+  //       url: `${siteUrl}/${post.path}`,
+  //       lastModified: post.lastmod || post.date,
+  //     }));
 
-	// return [...routes, ...blogs];
-	return [...routes];
+  const routes = ['', 'about', 'posts', 'projects', 'tags'].map((route) => ({
+    url: `${siteUrl}/${route}`,
+    lastModified: new Date().toISOString().split('T')[0],
+  }));
+
+  //   return [...routes, ...blogRoutes];
+
+  // return [...routes, ...blogs];
+  return [...routes];
 }

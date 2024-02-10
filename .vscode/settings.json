@@ -8,9 +8,9 @@
     "typescriptreact"
   ],
   "editor.formatOnSave": true,
-  // "editor.codeActionsOnSave": {
-  //     "source.fixAll.eslint":true
-  // },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
   "typescript.tsserver.experimental.enableProjectDiagnostics": true,
   "eslint.codeActionsOnSave.mode": "all",
   "eslint.run": "onSave",
