@@ -10,7 +10,7 @@
     "lint": "next lint -- --ignore-path .gitignore",
     "lint:fix": "npm run format && npm run lint -- --fix",
     "serve": "next start",
-    "type-check": "tsc --noEmit"
+    "type:check": "tsc --noEmit"
   },
   "prettier": {
     "semi": true,

@@ -2,30 +2,35 @@ import './globals.css';
 
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { GeistMono } from 'geist/font/mono';
-import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-// import { PreloadResources } from './preload'
 import Providers from './providers';
+import siteMetadata from '@/data/siteMetadata';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	metadataBase: new URL('https://xyruscode.com.ng'),
+	metadataBase: new URL(siteMetadata.siteUrl),
 	title: {
-		default: 'Xyrus Code',
-		template: '%s | Xyrus Code',
+		default: siteMetadata.title,
+		template: `%s - ${siteMetadata.description}`,
 	},
-	description: 'Developer, writer, and creator.',
+	description: siteMetadata.description,
 	openGraph: {
-		title: 'Xyrus Code',
-		description: 'Developer, writer, and creator.',
-		url: 'https://xyruscode.com.ng',
-		siteName: 'Xyrus Code',
+		title: siteMetadata.title,
+		description: siteMetadata.description,
+		url: './',
+		siteName: siteMetadata.title,
+		images: [siteMetadata.socialBanner],
 		locale: 'en_US',
 		type: 'website',
+	},
+	alternates: {
+		canonical: './',
+		types: {
+			'application/rss+xml': `${siteMetadata.siteUrl}/feed.xml`,
+		},
 	},
 	robots: {
 		index: true,
@@ -39,30 +44,38 @@ export const metadata: Metadata = {
 		},
 	},
 	twitter: {
-		title: 'Xyrus Code',
+		title: siteMetadata.title,
 		card: 'summary_large_image',
+		images: [siteMetadata.socialBanner],
 	},
-	verification: {
-		google: '',
-		yandex: '',
-	},
-};
+}
 
 export default function RootLayout({
 	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode
 }) {
 	return (
 		<html
-			lang="en">
+			lang={siteMetadata.language}
+			className={`scroll-smooth`}
+			suppressHydrationWarning
+		>
+			<link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-touch-icon.png" />
+			<link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png" />
+			<link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png" />
+			<link rel="manifest" href="/static/favicons/site.webmanifest" />
+			<link rel="mask-icon" href="/static/favicons/safari-pinned-tab.svg" color="#5bbad5" />
+			<meta name="msapplication-TileColor" content="#000000" />
+			<meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+			<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+			<link rel="alternate" type="application/rss+xml" href="/feed.xml" />
 			<body className={inter.className}>
 				<Providers>
 
 					{children}
 					<Analytics />
 					<SpeedInsights />
-					{/* <PreloadResources /> */}
 				</Providers>
 			</body>
 		</html>

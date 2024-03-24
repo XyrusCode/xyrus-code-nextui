@@ -18,7 +18,7 @@ export function CustomPortableText({
 	const components: PortableTextComponents = {
 		block: {
 			normal: ({ children }) => {
-				return <p className={paragraphClasses}>{children}</p>;
+				return <p className={`text-gray-900 dark:text-white ${paragraphClasses}`}>{children}</p>;
 			},
 		},
 		marks: {

@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 	return {
 		title: homePage?.title
 			? {
-				template: `%s | ${homePage.title}`,
+				template: `%s - ${homePage.title}`,
 				default: homePage.title || 'Personal website',
 			}
 			: undefined,
@@ -48,12 +48,14 @@ export const viewport: Viewport = {
 export default async function IndexRoute({
 	children,
 }: {
-  children: React.ReactNode
+	children: React.ReactNode
 }) {
+
 	return (
 		<>
-			<div className="flex min-h-screen flex-col bg-white dark:bg-gray-900">
+			<div className="flex min-h-screen flex-col bg-primary-50 dark:bg-secondary-50">
 				<Suspense>
+
 					<Navbar />
 
 					<div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">

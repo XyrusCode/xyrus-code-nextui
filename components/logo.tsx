@@ -1,11 +1,32 @@
-import React from 'react';
-export const Logo = () => (
-	<svg fill="none" height="36" viewBox="0 0 32 32" width="36">
-		<path
-			clipRule="evenodd"
-			d="M17.6482 10.1305L15.8785 7.02583L7.02979 22.5499H10.5278L17.6482 10.1305ZM19.8798 14.0457L18.11 17.1983L19.394 19.4511H16.8453L15.1056 22.5499H24.7272L19.8798 14.0457Z"
-			fill="currentColor"
-			fillRule="evenodd"
+'use client';
+import { useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+
+const isDarkMode = (theme: string) => theme === 'dark';
+
+const Logo = () => {
+	const { theme } = useTheme();
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		setLoading(false);
+	}, [theme]);
+
+	const themeMode = theme || 'light';
+
+	if (loading) {
+		return null; // or a loading placeholder if needed
+	}
+
+	return (
+		<Image
+			alt="Xyrus Code Logo"
+			width={150}
+			height={150}
+			src={isDarkMode(themeMode) ? '/logo-dark.png' : '/logo.png'}
 		/>
-	</svg>
-);
+	);
+};
+
+export default Logo;

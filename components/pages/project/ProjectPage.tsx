@@ -7,8 +7,8 @@ import ImageBox from '@/components/shared/ImageBox';
 import type { ProjectPayload } from '@/types/sanity';
 
 export interface ProjectPageProps {
-  data: ProjectPayload | null
-  encodeDataAttribute?: EncodeDataAttributeCallback
+	data: ProjectPayload | null
+	encodeDataAttribute?: EncodeDataAttributeCallback
 }
 
 export function ProjectPage({ data, encodeDataAttribute }: ProjectPageProps) {
@@ -90,7 +90,7 @@ export function ProjectPage({ data, encodeDataAttribute }: ProjectPageProps) {
 							<div className="text-md flex flex-row flex-wrap md:text-lg">
 								{tags?.map((tag, key) => (
 									<div key={key} className="mr-1 break-words ">
-                    #{tag}
+										#{tag}
 									</div>
 								))}
 							</div>
@@ -101,7 +101,7 @@ export function ProjectPage({ data, encodeDataAttribute }: ProjectPageProps) {
 				{/* Description */}
 				{description && (
 					<CustomPortableText
-						paragraphClasses="font-serif max-w-3xl text-xl text-gray-600"
+						paragraphClasses="font-serif max-w-3xl text-xl text-secondary-100 dark:text-primary-200"
 						value={description}
 					/>
 				)}

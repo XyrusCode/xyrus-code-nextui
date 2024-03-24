@@ -6,7 +6,7 @@ const siteMetadata = {
   description: 'Writer, Developer, and Creator',
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://vr.xyruscode.com.ng',
+  siteUrl: 'https://v3.xyruscode.com.ng',
   siteRepo: 'https://github.com/xyruscode/xyus code-next-ui',
   siteLogo: '/static/images/logo.png',
   socialBanner: '/static/images/twitter-card.png',
@@ -15,7 +15,7 @@ const siteMetadata = {
   github: 'https://github.com/xyruscode',
   twitter: 'https://twitter.com/xyruscode',
   facebook: 'https://facebook.com/xyruscode',
-  youtube: 'https://youtube.com/xyruscode',
+  youtube: 'https://youtube.com/xyrus-code',
   linkedin: 'https://www.linkedin.com/in/xyruscode',
   threads: 'https://www.threads.net/@xyruscode',
   instagram: 'https://www.instagram.com/xyrus.kode',

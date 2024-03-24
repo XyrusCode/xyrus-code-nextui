@@ -11,20 +11,40 @@ import {
 } from '@nextui-org/react';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-
-import { Logo } from '@/components/logo';
-import { ThemeSwitcher } from '@/components/ThemeSwitcher';
+import { auth } from "@/app/auth";
+import type { Session } from "next-auth";
+import UserButton from '@/components/shared/UserButton';
+import Logo from '@/components/logo';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+import SearchButton from '@/components/shared/SearchButton';
 import { resolveHref } from '@/sanity/lib/utils';
 import type { MenuItem, SettingsPayload } from '@/types/sanity';
 
 interface NavbarProps {
-  data: SettingsPayload;
+	data: SettingsPayload;
 }
-export default function Navbar(props: NavbarProps) {
-	const { data } = props;
+const Navbar = async (props: NavbarProps) => {
 	const pathname = usePathname();
-	const menuItems = data?.menuItems || ([] as MenuItem[]);
 	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+	const [session, setSession] = React.useState<Session | null>(null); // Initialize session state
+
+	// const session = await auth() as Session;
+	React.useEffect(() => {
+		const fetchSession = async () => {
+			try {
+				const sessionData = await auth() as Session;
+				setSession(sessionData);
+			} catch (error) {
+				console.error("Error fetching session:", error);
+			}
+		};
+
+		fetchSession();
+	}, []); // Empty dependency array to run only once on component mount
+
+
+	const { data } = props;
+	const menuItems = data?.menuItems || ([] as MenuItem[]);
 
 	return (
 		<NxtNavbar
@@ -32,7 +52,7 @@ export default function Navbar(props: NavbarProps) {
 			isBordered
 			onMenuOpenChange={setIsMenuOpen}
 			isBlurred={false}
-			className="bg-white dark:bg-gray-900"
+			className="bg-primary-50 dark:bg-secondary-50"
 		>
 			<NavbarContent>
 				<NavbarMenuToggle
@@ -42,7 +62,6 @@ export default function Navbar(props: NavbarProps) {
 				<Link href="/">
 					<NavbarBrand>
 						<Logo />
-						<p className="font-bold text-inherit">Xyrus Code</p>
 					</NavbarBrand>
 				</Link>
 			</NavbarContent>
@@ -55,7 +74,7 @@ export default function Navbar(props: NavbarProps) {
 					return (
 						<NavbarItem
 							isActive={pathname === href}
-							key={`${item.slug}-${index}`}
+							key={item.slug}
 						>
 							<Link
 								color={pathname === href ? 'primary' : 'foreground'}
@@ -70,8 +89,13 @@ export default function Navbar(props: NavbarProps) {
 				})}
 			</NavbarContent>
 			<NavbarContent justify="end">
-				<NavbarItem className="hidden lg:flex">
-					<Link href="#">Login</Link>
+				<NavbarItem>
+					<SearchButton />
+				</NavbarItem>
+				<NavbarItem>
+					<UserButton
+						user={session?.user}
+					/>
 				</NavbarItem>
 				<NavbarItem>
 					<ThemeSwitcher />
@@ -79,29 +103,39 @@ export default function Navbar(props: NavbarProps) {
 			</NavbarContent>
 			<NavbarMenu>
 				{menuItems &&
-          menuItems.map((menuItem, index) => {
-          	const href = resolveHref(menuItem?._type, menuItem?.slug);
-          	if (!href) {
-          		return null;
-          	}
-          	return (
-          		<NavbarMenuItem isActive={pathname === href} key={index}>
-          			<Link
-          				key={index}
-          				color={pathname === href ? 'success' : 'foreground'}
-          				className={`text-lg hover:text-black md:text-xl ${
-          					pathname === href
-          						? 'font-extrabold text-black'
-          						: 'text-gray-600'
-          				}`}
-          				href={href}
-          			>
-          				{menuItem.title}
-          			</Link>
-          		</NavbarMenuItem>
-          	);
-          })}
+					menuItems.map((menuItem, index) => {
+						const href = resolveHref(menuItem?._type, menuItem?.slug);
+						if (!href) {
+							return null;
+						}
+						return (
+							<NavbarMenuItem isActive={pathname === href} key={index}>
+								<Link
+									key={index}
+									color={pathname === href ? 'success' : 'foreground'}
+									className={`text-lg hover:text-black md:text-xl ${pathname === href
+										? 'font-extrabold text-black'
+										: 'text-gray-600'
+										}`}
+									href={href}
+								>
+									{menuItem.title}
+								</Link>
+							</NavbarMenuItem>
+						);
+					})}
+				<NavbarMenuItem>
+					<Link
+						color="foreground"
+						className="text-lg hover:text-black md:text-xl"
+						href="/admin"
+					>
+						Admin
+					</Link>
+				</NavbarMenuItem>
 			</NavbarMenu>
 		</NxtNavbar>
 	);
-}
+};
+
+export default Navbar;

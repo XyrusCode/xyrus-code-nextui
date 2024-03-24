@@ -3,13 +3,13 @@ import Image from 'next/image';
 import { urlForImage } from '@/sanity/lib/utils';
 
 interface ImageBoxProps {
-  image?: { asset?: any }
-  alt?: string
-  width?: number
-  height?: number
-  size?: string
-  classesWrapper?: string
-  'data-sanity'?: string
+	image?: { asset?: any }
+	alt?: string
+	width?: number
+	height?: number
+	size?: string
+	classesWrapper?: string
+	'data-sanity'?: string
 }
 
 export default function ImageBox({
@@ -22,16 +22,16 @@ export default function ImageBox({
 	...props
 }: ImageBoxProps) {
 	const imageUrl =
-    image && urlForImage(image)?.height(height).width(width).fit('crop').url();
+		image && urlForImage(image)?.height(height).width(width).fit('crop').url();
 
 	return (
 		<div
-			className={`w-full overflow-hidden rounded-[3px] bg-gray-50 ${classesWrapper}`}
+			className={`w-full overflow-hidden rounded-[3px] ${classesWrapper}`}
 			data-sanity={props['data-sanity']}
 		>
 			{imageUrl && (
 				<Image
-					className="absolute h-full w-full"
+					className="absolute h-full w-full object-cover rounded-xl"
 					alt={alt}
 					width={width}
 					height={height}

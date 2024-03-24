@@ -26,6 +26,12 @@ const config: Config = {
           '200': '#2a2a2a',
         },
       },
+      textColor: {
+        primary: {
+          light: 'secondary-50', // Use light mode color
+          dark: 'primary-50', // Use dark mode color
+        },
+      },
     },
   },
   plugins: [nextui()],
